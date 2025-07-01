@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #4f46e5, #3b82f6);
+      margin: 0;
+      padding: 2rem;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 1rem;
+      color: #1f2937;
+    }
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      text-align: center;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #2563eb;
+    }
+    .history {
+      margin-top: 2rem;
+      text-align: left;
+    }
+    .history h4 {
+      margin-bottom: 0.5rem;
+      color: #4b5563;
+    }
+    .history ul {
+      padding-left: 1rem;
+      max-height: 150px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+    .disclaimer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🔐 Strong Password Generator</h2>
+    <input type="text" id="password" readonly />
+    <button onclick="generatePassword()">Generate Password</button>
+
+    <div class="history">
+      <h4>Previously Generated:</h4>
+      <ul id="historyList"></ul>
+    </div>
+
+    <div class="disclaimer">
+      ⚠️ We do not store or transmit any generated passwords. This tool is for personal use only.
+    </div>
+  </div>
+
+  <script>
+    function generatePassword() {
+      const length = 16;
+      const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~";
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+      }
+      document.getElementById("password").value = password;
+      appendToHistory(password);
+    }
+
+    function appendToHistory(pwd) {
+      const list = document.getElementById("historyList");
+      const item = document.createElement("li");
+      item.textContent = pwd;
+      list.insertBefore(item, list.firstChild);
+    }
+  </script>
+</body>
+</html>
